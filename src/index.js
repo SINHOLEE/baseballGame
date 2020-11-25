@@ -1,7 +1,9 @@
 export default function BaseballGame() {
-  this.play = function (computerInputNumbers, userInputNumbers) {
-    return "결과 값 String";
-  };
+	this.play = function (computerInputNumbers, userInputNumbers) {
+		console.log("play");
+		console.log(match(computerInputNumbers, userInputNumbers));
+		return "결과 값 String";
+	};
 }
 
 // export default class BaseballGame {
@@ -10,4 +12,57 @@ export default function BaseballGame() {
 //   }
 // }
 
-new BaseballGame();
+const baseball = new BaseballGame();
+
+const form = document.querySelector("form");
+const userInput = document.getElementById("user-input");
+function match(num1, num2) {
+	const result = { ball: 0, strike: 0, nothing: 0 };
+	for (let i = 0; i < num1.length; i++) {
+		if (num1[i] === num2[i]) {
+			result.strike++;
+		} else if (num1.includes(num2[i])) {
+			result.ball++;
+		} else {
+			result.nothing++;
+		}
+	}
+	return result;
+}
+
+function getRandomInt() {
+	return Math.floor(Math.random() * 9) + 1;
+}
+
+function get3RandomNums() {
+	const nums = [];
+	for (let i = 0; i < 3; i++) {
+		while (1) {
+			const randomNum = getRandomInt();
+			if (!nums.includes(randomNum)) {
+				nums.push(randomNum);
+				break;
+			}
+		}
+	}
+	return nums;
+}
+
+function stringTo3NumsArr(str) {
+	const nums = str.split("");
+	return nums.map((num) => parseInt(num));
+}
+const computer = get3RandomNums();
+function onSubmit(e) {
+	e.preventDefault();
+	console.log(e);
+	if (userInput.value === "") {
+		return;
+	}
+	console.log(stringTo3NumsArr(userInput.value));
+	console.log("computer", computer);
+	baseball.play(computer, stringTo3NumsArr(userInput.value));
+	userInput.value = "";
+}
+
+form.addEventListener("submit", onSubmit);
