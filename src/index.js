@@ -59,7 +59,31 @@ function onSubmit(e) {
 	if (userInput.value === "") {
 		return;
 	}
-	console.log(stringTo3NumsArr(userInput.value));
+	var regexp = /^[0-9]*$/;
+	if (!regexp.test(userInput.value)) {
+		alert("숫자가 아닙니다. 다시입력해주세요.");
+		userInput.value = "";
+
+		return;
+	}
+	if (userInput.value.length !== 3) {
+		alert("3자리 숫자를 입력하십시오.");
+		userInput.value = "";
+		return;
+	}
+	const userInputNums = stringTo3NumsArr(userInput.value);
+	if (
+		userInputNums[0] === userInputNums[1] ||
+		userInputNums[1] === userInputNums[2] ||
+		userInputNums[0] === userInputNums[2]
+	) {
+		alert("서로 다른 숫자를 입력해 주십이오.");
+		userInput.value = "";
+		return;
+	}
+
+	console.log(userInput.value.length);
+	console.log("reg ", regexp.test(userInput.value));
 	console.log("computer", computer);
 	baseball.play(computer, stringTo3NumsArr(userInput.value));
 	userInput.value = "";
