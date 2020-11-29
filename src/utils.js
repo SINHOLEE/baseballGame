@@ -1,25 +1,21 @@
-function getRandomInt() {
-	return Math.floor(Math.random() * 9) + 1;
+function getUnSelectedRandomNumber(nums) {
+	let randomNumber;
+	while (true) {
+		randomNumber = (Math.floor(Math.random() * 9) + 1).toString();
+		if (!nums.includes(randomNumber)) {
+			break;
+		}
+	}
+	return randomNumber;
 }
 
 export function getNthRandomNumbers(n) {
 	let nums = "";
 	for (let i = 0; i < n; i++) {
-		while (1) {
-			const randomNum = getRandomInt();
-			if (!nums.includes(randomNum)) {
-				nums += randomNum.toString();
-				break;
-			}
-		}
+		nums += getUnSelectedRandomNumber(nums);
 	}
 	return nums;
 }
-
-// export function stringToNumsArr(str) {
-// 	const nums = str.split("");
-// 	return nums.map((num) => parseInt(num));
-// }
 
 export function isInputValidated(value) {
 	if (value === "") {
@@ -27,7 +23,7 @@ export function isInputValidated(value) {
 	}
 	const regexp = /^[1-9]*$/;
 	if (!regexp.test(value)) {
-		alert("숫자가 아닙니다. 다시입력해주세요.");
+		alert("입력 가능한 숫자가 아닙니다. 다시입력해주세요.");
 
 		return true;
 	}
@@ -35,7 +31,6 @@ export function isInputValidated(value) {
 		alert("3자리 숫자를 입력하십시오.");
 		return true;
 	}
-	// const userInputNums = stringToNumsArr(value);
 	if (value[0] === value[1] || value[1] === value[2] || value[0] === value[2]) {
 		alert("서로 다른 숫자를 입력해 주십시오오.");
 		return true;

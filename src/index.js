@@ -13,7 +13,6 @@ function init() {
 function onClick() {
 	init();
 }
-const board = document.createElement("div");
 
 function onSubmit(e) {
 	e.preventDefault();
