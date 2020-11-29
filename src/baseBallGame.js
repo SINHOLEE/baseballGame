@@ -9,6 +9,10 @@ function BaseballGame() {
 		this.inputBucket.push(value);
 	};
 
+	this.resetInputBucket = function () {
+		this.inputBucket = [];
+	};
+
 	this.getLastUserInput = function () {
 		return this.inputBucket[this.getCountInputBucket() - 1];
 	};

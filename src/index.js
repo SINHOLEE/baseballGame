@@ -1,5 +1,5 @@
 import { baseball } from "./baseBallGame.js";
-import { isInputValidated } from "./utils.js";
+import { isInputValid } from "./utils.js";
 
 const form = document.querySelector("form");
 const userInput = document.getElementById("user-input");
@@ -9,6 +9,8 @@ function init() {
 	result.innerHTML = null;
 	userInput.value = "";
 	baseball.resetComputerNumbers();
+	baseball.resetInputBucket();
+	userInput.focus();
 }
 function onClick() {
 	init();
@@ -16,7 +18,7 @@ function onClick() {
 
 function onSubmit(e) {
 	e.preventDefault();
-	if (isInputValidated(userInput.value)) {
+	if (!isInputValid(userInput.value)) {
 		userInput.value = "";
 		return;
 	}
@@ -41,6 +43,7 @@ function onSubmit(e) {
 		button.innerText = "게임 재시작";
 		button.addEventListener("click", onClick);
 		result.appendChild(button);
+		button.focus();
 	}
 	userInput.value = "";
 }
