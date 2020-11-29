@@ -1,15 +1,27 @@
-import { get3RandomNumArr } from "./utils.js";
+import { getNthRandomNumbers } from "./utils.js";
 
 function BaseballGame() {
 	this.res = {};
-	this.computerNumArr = null;
+	this.inputBucket = [];
+	this.computerNumbers = null;
 
-	this.resetComputerNumArr = function () {
-		this.computerNumArr = get3RandomNumArr();
+	this.insertInputBucket = function (value) {
+		this.inputBucket.push(value);
 	};
 
-	this.getComputerNumArr = function () {
-		return this.computerNumArr;
+	this.getLastUserInput = function () {
+		return this.inputBucket[this.getCountInputBucket() - 1];
+	};
+
+	this.getCountInputBucket = function () {
+		return this.inputBucket.length;
+	};
+	this.resetComputerNumbers = function () {
+		this.computerNumbers = getNthRandomNumbers(3);
+	};
+
+	this.getComputerNumbers = function () {
+		return this.computerNumbers;
 	};
 
 	this.match = function (num1, num2) {
@@ -36,15 +48,18 @@ function BaseballGame() {
 
 	this.play = function (
 		userInputNumbers,
-		computerInputNumbers = this.getComputerNumArr()
+		computerInputNumbers = this.getComputerNumbers()
 	) {
+		this.insertInputBucket(userInputNumbers);
 		const result = this.match(computerInputNumbers, userInputNumbers);
 		this.res = result;
 		if (this.isNothing()) {
-			return "낫싱";
+			const returnString = "낫싱";
+			return returnString;
 		}
 		if (this.isRight()) {
-			return "🎉정답을 맞추셨습니다.🎉";
+			const returnString = "🎉정답을 맞추셨습니다.🎉";
+			return returnString;
 		}
 		let returnString = "";
 		returnString += result.ball > 0 ? `${result.ball}볼 ` : "";

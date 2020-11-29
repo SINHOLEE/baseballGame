@@ -2,13 +2,13 @@ function getRandomInt() {
 	return Math.floor(Math.random() * 9) + 1;
 }
 
-export function get3RandomNumArr() {
-	const nums = [];
-	for (let i = 0; i < 3; i++) {
+export function getNthRandomNumbers(n) {
+	let nums = "";
+	for (let i = 0; i < n; i++) {
 		while (1) {
 			const randomNum = getRandomInt();
 			if (!nums.includes(randomNum)) {
-				nums.push(randomNum);
+				nums += randomNum.toString();
 				break;
 			}
 		}
@@ -16,10 +16,10 @@ export function get3RandomNumArr() {
 	return nums;
 }
 
-export function stringToNumsArr(str) {
-	const nums = str.split("");
-	return nums.map((num) => parseInt(num));
-}
+// export function stringToNumsArr(str) {
+// 	const nums = str.split("");
+// 	return nums.map((num) => parseInt(num));
+// }
 
 export function isInputValidated(value) {
 	if (value === "") {
@@ -35,12 +35,8 @@ export function isInputValidated(value) {
 		alert("3자리 숫자를 입력하십시오.");
 		return true;
 	}
-	const userInputNums = stringToNumsArr(value);
-	if (
-		userInputNums[0] === userInputNums[1] ||
-		userInputNums[1] === userInputNums[2] ||
-		userInputNums[0] === userInputNums[2]
-	) {
+	// const userInputNums = stringToNumsArr(value);
+	if (value[0] === value[1] || value[1] === value[2] || value[0] === value[2]) {
 		alert("서로 다른 숫자를 입력해 주십시오오.");
 		return true;
 	}
